@@ -12,20 +12,20 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script_env:
     - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
   script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
     - setuptools
     - setuptools_scm
     - lxml
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - lxml
 
 test:
@@ -33,6 +33,7 @@ test:
     - xmlvalidator
   requires:
     - pytest
+    - python {{ python_min }}
   commands:
     - python run_test.py
 
